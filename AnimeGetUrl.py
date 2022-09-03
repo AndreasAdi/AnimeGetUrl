@@ -159,17 +159,29 @@ def main():
             for link in links:
                 # print(link.get("data-video"))
                 video_links.append(link.get("data-video"))
+                print("["+str(len(video_links))+"]" + link.get("data-video"))
                 # print("\n")
 
+            select_mirror = 999
+            while (select_mirror > len(video_links) or select_mirror < 1):
+                try:
+                    select_mirror = int(input("Select Video Mirror: "))
+                except ValueError:
+                    print("Invalid input")
+                    select_mirror = 999
+                    continue
+
+            webbrowser.open(video_links[select_mirror-1])
+
             # open first link in video_links in browser
-            webbrowser.open(video_links[0])
+            # webbrowser.open(video_links[0])
 
             # ask if user wants to watch another episode
             another = input("Watch another episode? (y/n): ")
             if (another == "n"):
                 exit = True
 
-        input("Press Enter to exit")
+        input("Press Enter to exit .....")
     except UnboundLocalError:
         print("No results found")
     except KeyboardInterrupt:
