@@ -7,9 +7,9 @@ import requests
 
 def main():
     try:
-        baseurl = "https://gogoanime.ee"
+        baseurl = "https://gogoanime.ar"
 
-        url = "https://gogoanime.ee/search.html?keyword="
+        url = "https://gogoanime.ar/search.html?keyword="
 
         link_list = []
         search_result = False
@@ -17,7 +17,7 @@ def main():
         #print in green
         print('\033[92m' + "####################################" + '\033[0m')
         print('\033[92m' + "#                                  #" + '\033[0m')
-        print('\033[92m' + "# AnimeGetUrl - v1.0 - by @Andreas #" + '\033[0m')
+        print('\033[92m' + "# AnimeGetUrl - v1.1 - by @Andreas #" + '\033[0m')
         print('\033[92m' + "#                                  #" + '\033[0m')
         print('\033[92m' + "####################################" + '\033[0m')
         while not search_result:
@@ -158,7 +158,15 @@ def main():
             # loop for all links and find data_video property
             for link in links:
                 # print(link.get("data-video"))
+
+                # if link does not contain https:// then add it
+                if (link.get("data-video").find("https://") == -1):
+                    link["data-video"] = "https:" + link.get("data-video")
+                else:
+                    link["data-video"] = link.get("data-video")
+    
                 video_links.append(link.get("data-video"))
+
                 print("["+str(len(video_links))+"]" + link.get("data-video"))
                 # print("\n")
 
